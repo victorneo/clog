@@ -1,4 +1,4 @@
 language: clojure
-script: bin/lein test
+script: lein test
 jdk:
   - oraclejdk7

@@ -1,5 +1,7 @@
 # clog
 
+[![Build Status](https://travis-ci.org/victorneo/clog.png?branch=master)](https://travis-ci.org/victorneo/clog)
+
 Clog is a blogging web app built on Clojure. To be specific, it is built using
 the following libraries:
 

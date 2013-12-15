@@ -1,6 +1,6 @@
 (defproject clog "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+  :description "Clog is blogging web app built in Clojure"
+  :url "http://github.com/victorneo/clog"
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [ring/ring-core "1.2.1"]
                  [compojure "1.1.6"]]

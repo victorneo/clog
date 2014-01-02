@@ -1,5 +1,6 @@
 (ns clog.handlers
   (:use compojure.core)
+  (:use selmer.parser)
   (:require [compojure.route :as route]
             [compojure.handler :as handler]
             [compojure.response :as response]))
@@ -15,5 +16,5 @@
 
 (defn view-post
   [id]
-  {:body (str "Viewing post " id)})
+  {:body (render-file "templates/post.html" {:id id})})
 

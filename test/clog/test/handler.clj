@@ -17,7 +17,9 @@
   (testing "view post route"
     (let [response (app (request :get "/view/4/"))]
       (is (= (:status response) 200))
-      (is (= (:body response) "Viewing post 4"))))
+      (is (not= (.indexOf (:body response) "Viewing post 4") -1))
+      ))
+      ;(is (= (:body response) "Viewing post 4"))))
 
   (testing "not-found route"
     (let [response (app (request :get "/invalid"))]

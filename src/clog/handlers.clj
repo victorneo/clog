@@ -3,7 +3,8 @@
   (:use selmer.parser)
   (:require [compojure.route :as route]
             [compojure.handler :as handler]
-            [compojure.response :as response]))
+            [compojure.response :as response]
+            [clog.db :as db]))
 
 
 (defn index-page

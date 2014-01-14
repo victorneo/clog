@@ -8,6 +8,7 @@
 (defroutes main-routes
   (GET "/" [] (index-page))
   (GET "/new/" [] (new-post))
+  (POST "/new/" [title body] (new-post))
   (GET "/view/:id/" [id] (view-post id))
   (route/resources "/")
   (route/not-found "Page not found"))

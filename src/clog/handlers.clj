@@ -13,7 +13,7 @@
 
 (defn new-post
   []
-  {:body "Creating new post"})
+  {:body (render-file "templates/new-post.html" {})})
 
 (defn view-post
   [id]

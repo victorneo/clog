@@ -3,7 +3,9 @@
         ring.mock.request
         clog.routes)
   (:require [clojure.java.io :as io]
+            [net.cgrand.enlive-html :as html]
             [clog.db :as db]))
+
 
 
 (use-fixtures :once
@@ -30,12 +32,14 @@
   (testing "New Post Route"
       (let [response (app (request :get "/new/"))]
         (is (= (:status response) 200))
-        (is (= (:body response) "Creating new post"))))
+        (is (= (str (first (:content (first (html/select
+            (html/html-snippet (:body response)) [:h1]))))) "Create a new blog post"))))
 
   (testing "View Post Route"
       (let [response (app (request :get "/view/4/"))]
         (is (= (:status response) 200))
-        (is (not= (.indexOf (:body response) "Viewing post 4") -1))))
+        (is (= (str (first (:content (first (html/select
+            (html/html-snippet (:body response)) [:h1]))))) "Viewing post 4"))))
 
     (testing "Not-found Route"
       (let [response (app (request :get "/invalid"))]

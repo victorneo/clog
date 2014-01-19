@@ -6,6 +6,7 @@
                  [selmer "0.5.5"]
                  [org.clojure/java.jdbc "0.3.2"]
                  [org.xerial/sqlite-jdbc "3.7.2"]
+                 [enlive "1.1.5"]
                  [compojure "1.1.6"]]
   :plugins [[lein-ring "0.8.8"]]
   :ring {:init clog.db/create-db

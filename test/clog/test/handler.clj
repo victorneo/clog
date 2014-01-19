@@ -7,7 +7,6 @@
             [clog.db :as db]))
 
 
-
 (use-fixtures :once
   (fn [f]
         (db/create-db)
@@ -30,16 +29,18 @@
         (is (= (:body response) "Hello World"))))
 
   (testing "New Post Route"
-      (let [response (app (request :get "/new/"))]
+      (let [response (app (request :get "/new/"))
+            body (html/html-snippet (:body response))
+            title (str (first (:content (first (html/select body [:h1])))))
+            form (str (first (:content (first (html/select body [:form])))))]
         (is (= (:status response) 200))
-        (is (= (str (first (:content (first (html/select
-            (html/html-snippet (:body response)) [:h1]))))) "Create a new blog post"))))
+        (is (= title "Create a new blog post"))))
 
   (testing "View Post Route"
-      (let [response (app (request :get "/view/4/"))]
+      (let [response (app (request :get "/view/4/"))
+            title (str (first (:content (first (html/select (html/html-snippet (:body response)) [:h1])))))]
         (is (= (:status response) 200))
-        (is (= (str (first (:content (first (html/select
-            (html/html-snippet (:body response)) [:h1]))))) "Viewing post 4"))))
+        (is (= title "Viewing post 4"))))
 
     (testing "Not-found Route"
       (let [response (app (request :get "/invalid"))]

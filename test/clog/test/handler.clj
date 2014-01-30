@@ -36,11 +36,19 @@
         (is (= (:status response) 200))
         (is (= title "Create a new blog post"))))
 
-  (testing "View Post Route"
-      (let [response (app (request :get "/view/4/"))
+  (testing "View 404 Post Route"
+      (let [response (app (request :get "/view/99999/"))
             title (str (first (:content (first (html/select (html/html-snippet (:body response)) [:h1])))))]
         (is (= (:status response) 200))
-        (is (= title "Viewing post 4"))))
+        (is (= title "Post not found"))))
+
+
+  (testing "View Post Route"
+      (let [postId (db/insert-post {:date "Some Time" :title "Some Title" :body "Some Body"})
+            response (app (request :get (str "/view/" postId "/")))
+            title (str (first (:content (first (html/select (html/html-snippet (:body response)) [:h1])))))]
+        (is (= (:status response) 200))
+        (is (= title (str "Viewing post " postId )))))
 
     (testing "Not-found Route"
       (let [response (app (request :get "/invalid"))]

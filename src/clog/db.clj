@@ -24,4 +24,7 @@
 
 
 (defn get-post [id]
-  (first (sql/query sqlite-db ["SELECT * FROM posts WHERE ROWID = ?" id])))
+  (let [rows (sql/query sqlite-db ["SELECT * FROM posts WHERE ROWID = ?" id])]
+    (if (not= 1 (count rows))
+      nil
+      (first rows))))

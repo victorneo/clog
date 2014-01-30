@@ -17,5 +17,8 @@
 
 (defn view-post
   [id]
-  {:body (render-file "templates/post.html" {:id id})})
+  (let [post (db/get-post id)]
+    (if (= nil post)
+      {:body (render-file "templates/404.html" nil)}
+      {:body (render-file "templates/post.html" {:id id})})))
 

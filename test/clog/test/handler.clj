@@ -36,19 +36,31 @@
         (is (= (:status response) 200))
         (is (= title "Create a new blog post"))))
 
+  (testing "Create Post Route"
+      (let [title "Test title"
+            body "Test body"
+            response (app (request :post "/create/" {:title title :body body}))
+            headers (:headers response)]
+        (is (= (:status response) 302))
+        (is (not (= (re-seq #"\/view\/[\d]+\/" (headers "Location")) nil)))))
+
   (testing "View 404 Post Route"
       (let [response (app (request :get "/view/99999/"))
             title (str (first (:content (first (html/select (html/html-snippet (:body response)) [:h1])))))]
         (is (= (:status response) 200))
         (is (= title "Post not found"))))
 
-
   (testing "View Post Route"
-      (let [postId (db/insert-post {:date "Some Time" :title "Some Title" :body "Some Body"})
+      (let [title "Some title"
+            body "Some body"
+            postId (db/insert-post {:date "Some Time" :title title :body body})
             response (app (request :get (str "/view/" postId "/")))
-            title (str (first (:content (first (html/select (html/html-snippet (:body response)) [:h1])))))]
+            snippet (html/html-snippet (:body response))
+            renderedTitle (str (first (:content (first (html/select snippet [:h1])))))
+            renderedBody (str (first (:content (first (html/select snippet [:p])))))]
         (is (= (:status response) 200))
-        (is (= title (str "Viewing post " postId )))))
+        (is (= title renderedTitle))
+        (is (= body renderedBody))))
 
     (testing "Not-found Route"
       (let [response (app (request :get "/invalid"))]

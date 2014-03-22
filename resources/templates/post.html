@@ -1,6 +1,7 @@
 {% extends "templates/base.html" %}
 
-{% block title %}- Viewing post {{ id }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 {% block content %}
-  <h1>Viewing post {{ id }}</h1>
+  <h1>{{ title }}</h1>
+  <p class="content">{{ body }}</p>
 {% endblock %}

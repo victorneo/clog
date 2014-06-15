@@ -1,6 +1,7 @@
 (ns clog.test.handler
   (:use clojure.test
         ring.mock.request
+        [cheshire.core :only [parse-string]]
         clog.routes)
   (:require [clojure.java.io :as io]
             [net.cgrand.enlive-html :as html]
@@ -26,7 +27,7 @@
   (testing "Index Route"
       (let [response (app (request :get "/"))]
         (is (= (:status response) 200))
-        (is (= (:body response) "Hello World"))))
+        (is (= (:test (parse-string (:body response) true)) "Testing"))))
 
   (testing "New Post Route"
       (let [response (app (request :get "/new/"))

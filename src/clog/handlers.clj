@@ -10,7 +10,7 @@
 
 (defn index-page
   []
-  (response {:test "Testing"}))
+  {:body (render-file "templates/index.html" {})})
 
 (defn new-post
   []

@@ -1,10 +1,22 @@
-<html>
-<body>
-  <h1>Create a new blog post</h1>
-  <form method="POST">
-    <input type="text" name="title" />
-    <textarea name="body"></textarea>
-    <input type="submit" />
+{% extends "templates/base.html" %}
+
+{% block title %}Create a new blog post{% endblock %}
+
+{% block content %}
+  <h1>Create a New Blog Post</h1>
+  <form method="POST" action="/create/">
+    <div>
+      <h3>Title</h3>
+      <input type="text" name="title" placeholder="title" />
+    </div>
+
+    <div>
+      <h3>Content</h3>
+      <textarea name="body" placeholder="Blog post"></textarea>
+    </div>
+
+    <div>
+      <input type="submit" value="Add" />
+    </div>
   </form>
-</body>
-</html>
+{% endblock %}

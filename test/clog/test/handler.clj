@@ -25,9 +25,11 @@
 
 (deftest test-handlers
   (testing "Index Route"
-      (let [response (app (request :get "/"))]
+      (let [response (app (request :get "/"))
+            body (html/html-snippet (:body response))
+            title (str (first (:content (first (html/select body [:h1])))))]
         (is (= (:status response) 200))
-        (is (= (:test (parse-string (:body response) true)) "Testing"))))
+        (is (= title "Blog Posts"))))
 
   (testing "New Post Route"
       (let [response (app (request :get "/new/"))
@@ -35,7 +37,7 @@
             title (str (first (:content (first (html/select body [:h1])))))
             form (str (first (:content (first (html/select body [:form])))))]
         (is (= (:status response) 200))
-        (is (= title "Create a new blog post"))))
+        (is (= title "Create a New Blog Post"))))
 
   (testing "Create Post Route"
       (let [title "Test title"

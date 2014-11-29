@@ -20,7 +20,9 @@
         (let [post {:date "Some Time" :title "Some Title" :body "Some body"}
               post-id (db/insert-post post)
               created-post (db/get-post post-id)]
-          (is (= post created-post)))))
+          (is (= (:title post) (:title created-post)))
+          (is (= (:date post) (:date created-post)))
+          (is (= (:body post) (:body created-post))))))
 
 
 (deftest test-handlers

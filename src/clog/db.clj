@@ -8,6 +8,7 @@
 
 (defn posts-table-ddl []
   (sql/create-table-ddl :posts
+                       [:id :integer "PRIMARY KEY"]
                        [:date :text]
                        [:title :text]
                        [:body :text]))
@@ -22,6 +23,10 @@
 (defn insert-post [post]
   (first (vals (first (sql/insert! sqlite-db :posts post)))))
 
+
+(defn get-posts []
+  (let [rows (sql/query sqlite-db ["SELECT * FROM posts"])]
+    rows))
 
 (defn get-post [id]
   (let [rows (sql/query sqlite-db ["SELECT * FROM posts WHERE ROWID = ?" id])]

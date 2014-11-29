@@ -10,7 +10,8 @@
 
 (defn index-page
   []
-  {:body (render-file "templates/index.html" {})})
+  (let [posts (db/get-posts)]
+  {:body (render-file "templates/index.html" {:posts posts})}))
 
 (defn new-post
   []
@@ -21,7 +22,7 @@
   (let [post (db/get-post id)]
     (if (= nil post)
       {:body (render-file "templates/404.html" nil)}
-      {:body (render-file "templates/post.html" post)})))
+      {:body (render-file "templates/post.html" {:post post})})))
 
 (defn create-post
   [title body]

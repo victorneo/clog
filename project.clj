@@ -1,4 +1,4 @@
-(defproject clog "0.1.0-SNAPSHOT"
+(defproject clog "0.1.0"
   :description "Clog is blogging web app built in Clojure"
   :url "http://github.com/victorneo/clog"
   :dependencies [[org.clojure/clojure "1.6.0"]

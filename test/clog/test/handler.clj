@@ -3,16 +3,14 @@
         ring.mock.request
         [cheshire.core :only [parse-string]]
         clog.routes)
-  (:require [clojure.java.io :as io]
-            [net.cgrand.enlive-html :as html]
+  (:require [net.cgrand.enlive-html :as html]
             [clog.db :as db]))
 
 
 (use-fixtures :once
   (fn [f]
         (db/create-db)
-        (f)
-        (io/delete-file "posts.sqlite")))
+        (f)))
 
 
 (deftest test-db

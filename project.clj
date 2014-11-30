@@ -14,6 +14,7 @@
          :handler clog.routes/app
          :auto-refresh? true}
   :profiles
-  {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
+  {:dev {:resource-paths ["resources-test"]
+         :dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]
                         [enlive "1.1.5"]]}})

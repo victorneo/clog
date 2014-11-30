@@ -21,7 +21,7 @@ Posts are saved into a SQLite database.
 
 ### Tests
 
-Run `lein test`, or view [Travis CI's test results](https://travis-ci.org/victorneo/clog).
+Run `lein with-profile dev test`, or view [Travis CI's test results](https://travis-ci.org/victorneo/clog).
 
 ### Prerequisites
 

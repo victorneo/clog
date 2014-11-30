@@ -1,9 +1,15 @@
 (ns clog.db
-  (:require [clojure.java.jdbc :as sql]))
+  (:require [clojure.java.jdbc :as sql])
+  (:use [clojure.java.io]))
+
+
+(def config (delay (load-file (.getFile (resource "config.clj")))))
+(defn get-config []
+  @(force config))
 
 
 (def sqlite-db {:subprotocol "sqlite"
-                :subname "posts.sqlite"})
+                :subname (:database-uri (get-config))})
 
 
 (defn posts-table-ddl []
@@ -16,7 +22,9 @@
 (defn create-db []
   (try  (sql/db-do-commands sqlite-db
         (posts-table-ddl))
-  (catch Exception e (println e))))
+  (catch Exception e (println e)))
+  (println (get-config))
+  )
 
 
 ; Inserts a blog post and return its id
